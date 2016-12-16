@@ -1,4 +1,3 @@
-# Definition for an interval.
 class Interval(object):
     def __init__(self, s=0, e=0):
         self.start = s
@@ -6,22 +5,23 @@ class Interval(object):
 
 
 class Solution(object):
-    def merge(self, intervals):
+    def insert(self, intervals, newInterval):
         """
         :type intervals: List[Interval]
+        :type newInterval: Interval
         :rtype: List[Interval]
         """
-        out = []
-        for i in sorted(intervals, key=lambda i: i.start):
-            if out and i.start <= out[-1].end:
-                out[-1].end = max(out[-1].end, i.end)
-            else:
-                out += i,
-        return out
+        s, e = newInterval.start, newInterval.end
+        left = [i for i in intervals if i.end < s]
+        right = [i for i in intervals if i.start > e]
+        if left + right != intervals:
+            s = min(s, intervals[len(left)].start)
+            e = max(e, intervals[~len(right)].end)
+        return left + [Interval(s, e)] + right
 
 
 s = Solution()
-res = s.merge([Interval(1, 4), Interval(5, 6)])
+res = s.insert([Interval(1, 3), Interval(6, 9)], Interval(2, 5))
 for i in res:
     print i.start, i.end
 
