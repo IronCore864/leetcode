@@ -1,3 +1,4 @@
 *.pyc
 sync
 .idea
+_config.yml
