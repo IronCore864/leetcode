@@ -4,20 +4,19 @@ class Solution(object):
         :type s: str
         :rtype: int
         """
-        if s == '':
-            return 0
-
+        index = {}
+        max_len = 0
         start = 0
         end = 0
+        for end in xrange(0, len(s)):
+            start = max(index.get(s[end], 0), start)
+            max_len = max(max_len, end - start + 1)
+            index[s[end]] = end + 1
+        return max_len
 
-        pos_dict = {}
-        maxlen = 0
 
-        while(end < len(s)):
-            if s[end] in pos_dict:
-                if pos_dict[s[end]] >= start:
-                    maxlen = max(maxlen, end - start)
-                    start = pos_dict[s[end]] + 1
-            pos_dict[s[end]] = end
-            end += 1
-        return max(maxlen, end - start)
+s = Solution()
+print s.lengthOfLongestSubstring('abcabcbb')
+print s.lengthOfLongestSubstring('bbbbb')
+print s.lengthOfLongestSubstring('pwwkew')
+print s.lengthOfLongestSubstring('a')
