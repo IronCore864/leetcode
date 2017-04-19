@@ -1,4 +1,4 @@
-class Solution:
+class Solution(object):
     def _get_next(self, word, wordDict):
         next_possible = set()
         for i in xrange(len(word)):
