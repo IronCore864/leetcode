@@ -1,7 +1,9 @@
-class Node(object):
-    def __init__(self, x):
-        self.val = x
-        self.keys = {}
+from collections import defaultdict
+
+
+class Node():
+    def __init__(self):
+        self.children = defaultdict(Node)
         self.is_word = False
 
 
@@ -10,7 +12,7 @@ class Trie(object):
         """
         Initialize your data structure here.
         """
-        self.root = Node(None)
+        self.root = Node()
 
     def insert(self, word):
         """
@@ -22,12 +24,8 @@ class Trie(object):
             return
 
         current_node = self.root
-        for i in range(len(word)):
-            key = word[i]
-            prefix = word[:i + 1]
-            if key not in current_node.keys:
-                current_node.keys[key] = Node(prefix)
-            current_node = current_node.keys[key]
+        for w in word:
+            current_node = current_node.children[w]
         current_node.is_word = True
 
     def search(self, word):
@@ -37,12 +35,11 @@ class Trie(object):
         :rtype: bool
         """
         current_node = self.root
-        for ch in word:
-            if ch in current_node.keys:
-                current_node = current_node.keys[ch]
-            else:
+        for w in word:
+            current_node = current_node.children.get(w)
+            if not current_node:
                 return False
-        return True if current_node.is_word else False
+        return current_node.is_word
 
     def startsWith(self, prefix):
         """
@@ -51,10 +48,9 @@ class Trie(object):
         :rtype: bool
         """
         current_node = self.root
-        for ch in prefix:
-            if ch in current_node.keys:
-                current_node = current_node.keys[ch]
-            else:
+        for w in prefix:
+            current_node = current_node.children.get(w)
+            if not current_node:
                 return False
         return True
 
