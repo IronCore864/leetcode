@@ -3,11 +3,11 @@ class heap(object):
     def insert(h, n):
         h.append(n)
         current_idx = len(h) - 1
-        parent_idx = (current_idx - 1) / 2
+        parent_idx = (current_idx - 1) // 2
         while h[current_idx] < h[parent_idx] and parent_idx >= 0:
             h[current_idx], h[parent_idx] = h[parent_idx], h[current_idx]
             current_idx = parent_idx
-            parent_idx = (current_idx - 1) / 2
+            parent_idx = (current_idx - 1) // 2
 
     @staticmethod
     def pop(h):
@@ -28,7 +28,7 @@ class heap(object):
 
 
 class Solution():
-    def top_k(selfh, nums, k):
+    def top_k(self, nums, k):
         h = []
         for n in nums:
             if len(h) < k:
@@ -41,4 +41,4 @@ class Solution():
 
 
 s = Solution()
-print s.top_k([1, 2, 5, 10, 3, 7, 11, 15, 17, 20, 9, 15, 8, 16], 3)
+print(s.top_k([1, 2, 5, 10, 3, 7, 11, 15, 17, 20, 9, 15, 8, 16], 3))
