@@ -1,46 +1,50 @@
-from collections import defaultdict
+from collections import Counter
 
 
 class Solution(object):
-    def findAnagrams(self, s, p):
+    def findAnagrams(self, hay, needle):
         """
-        :type s: str
-        :type p: str
+        :type hay: str
+        :type needle: str
         :rtype: List[int]
         """
-        if not s or len(s) == 0 or not p or len(p) == 0 or len(p) > len(s):
+        if not hay or len(hay) == 0 or not needle or len(needle) == 0 or len(needle) > len(hay):
             return []
 
-        result = []
+        chars_count = Counter(needle)
 
-        charsCount = defaultdict(int)
-        for c in p:
-            charsCount[c] += 1
+        start = 0
+        end = len(needle)
 
-        counter = len(charsCount)
+        for c in hay[start:end]:
+            if c in chars_count:
+                chars_count[c] -= 1
+        zero_counter = len(chars_count) - sum([1 for i in chars_count.values() if i == 0])
 
-        begin, end = 0, 0
+        res = []
 
-        while end < len(s):
-            if s[end] in charsCount:
-                charsCount[s[end]] -= 1
-                if charsCount[s[end]] == 0:
-                    counter -= 1
+        for start in range(len(hay) - len(needle) + 1):
+            end = start + len(needle)
 
-            end += 1
+            if zero_counter == 0:
+                res.append(start)
 
-            while counter == 0:
-                if s[begin] in charsCount:
-                    charsCount[s[begin]] += 1
-                    if charsCount[s[begin]] > 0:
-                        counter += 1
+            if hay[start] in chars_count:
+                chars_count[hay[start]] += 1
+                if chars_count[hay[start]] == 1:
+                    zero_counter += 1
+                if chars_count[hay[start]] == 0:
+                    zero_counter -= 1
 
-                if end - begin == len(p):
-                    result.append(begin)
+            if start != len(hay) - len(needle) and hay[end] in chars_count:
+                chars_count[hay[end]] -= 1
+                if chars_count[hay[end]] == 0:
+                    zero_counter -= 1
+                if chars_count[hay[end]] == -1:
+                    zero_counter += 1
 
-                begin += 1
+        return res
 
-        return result
 
 s = Solution()
-print(s.findAnagrams('abca', 'ac'))
+print(s.findAnagrams("abacbabc", "abc"))
