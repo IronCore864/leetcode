@@ -6,21 +6,20 @@ func checkRecord(s string) bool {
 	absent := 0
 	continuousLate := 0
 
-	runes := []rune(s)
-	for i := 0; i < len(runes); i++ {
+	for _, c := range s {
 		switch {
-		case runes[i] == 'A':
+		case c == 'A':
 			absent += 1
 			continuousLate = 0
 			if absent > 1 {
 				return false
 			}
-		case runes[i] == 'L':
+		case c == 'L':
 			continuousLate += 1
 			if continuousLate > 2 {
 				return false
 			}
-		case runes[i] == 'P':
+		case c == 'P':
 			continuousLate = 0
 		}
 	}
