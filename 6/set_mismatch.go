@@ -1,6 +1,9 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"sort"
+)
 
 func sum(nums []int) int {
 	var sum int
@@ -11,6 +14,7 @@ func sum(nums []int) int {
 }
 
 func findErrorNums(nums []int) []int {
+	sort.Ints(nums)
 	var repeating int
 	for i := 1; i < len(nums); i++ {
 		if nums[i] == nums[i-1] {
@@ -23,8 +27,6 @@ func findErrorNums(nums []int) []int {
 }
 
 func main() {
-	sli := []int{1, 2, 2, 4}
-	fmt.Println(findErrorNums(sli))
-	sli = []int{2, 2}
+	sli := []int{2, 3, 2}
 	fmt.Println(findErrorNums(sli))
 }
