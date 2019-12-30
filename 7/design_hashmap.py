@@ -66,7 +66,7 @@ class MyHashMap:
             self.buckets[self._hash(key)] = None
             self.used -= 1
         elif current is not None:
-            previous.next = None
+            previous.next = current.next
             self.used -= 1
 
 
