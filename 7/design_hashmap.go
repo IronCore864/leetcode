@@ -42,6 +42,7 @@ func (hm *MyHashMap) fillNewBuckets(buckets []*ListNode, size int) []*ListNode {
 	}
 	return newBuckets
 }
+
 func (hm *MyHashMap) scaleUp() {
 	hm.size *= 2
 	hm.used = 0
@@ -96,12 +97,12 @@ func (hm *MyHashMap) Get(key int) int {
 func (hm *MyHashMap) Remove(key int) {
 	hm.checkCapacityAndResize()
 	previous, current := hm.searchNodeReturnPreviousCurrent(key)
-	if previous == nil || current == nil {
+	if current == nil {
 		return
 	} else if previous == current {
-		hm.buckets[hm.hash(key)] = nil
+		hm.buckets[hm.hash(key)] = current.next
 		hm.used--
-	} else if current.key == key {
+	} else {
 		previous.next = current.next
 		hm.used--
 	}
