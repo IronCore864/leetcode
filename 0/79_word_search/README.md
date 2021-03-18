@@ -28,7 +28,7 @@ word = 'AAA'
 
 These two corner cases could rule out quite a few test cases and speed it up significantly.
 
-## 2 The Recursive Algorithm
+### 2 The Recursive Algorithm
 
 Iterate over all cells (i, j) of the board, try to match the first char of the word.
 
