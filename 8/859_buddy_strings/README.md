@@ -31,3 +31,7 @@ A[x] == B[y] and A[y] == B[x]
 ```
 
 it's possible to swap these two.
+
+#### 3 Golang Implementation
+
+Same logic as the python version except using a different way of detecting duplicated characters.
