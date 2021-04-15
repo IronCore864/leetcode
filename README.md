@@ -22,3 +22,9 @@ In the spring of 2021, I decided to rework it a bit, mainly focusing on the medi
 I didn't plan to rework ALL of those medium difficulty ones, though. 
 
 Each of the reworked new solutions has its own single commit, with comments at least, possibly a readme as well, and put under specific folders with the problem name.
+
+## Search
+
+Search in this repo (see results in both code, and commits) to find a specific topic or algorithm. For example, if you want to see problems related to "backtrack":
+
+![backtrack](./screenshots/backtrack.png)
