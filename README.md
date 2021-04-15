@@ -4,7 +4,9 @@
 
 ## Origin
 
-This is my LeetCode project which I started at the end of 2016. I continued for quite a while, stopped in the mid of 2018, hibernated for quite a long time, then rebooted at the end of 2020 but didn't keep it going for a long time
+This is my LeetCode project which I started at the end of 2016.
+
+I continued for quite a while, stopped in the mid of 2018, hibernated for quite a long time, then rebooted at the end of 2020 but didn't keep it going for a long time. I did around 300 commits during that period.
 
 ## Dir Structure
 
