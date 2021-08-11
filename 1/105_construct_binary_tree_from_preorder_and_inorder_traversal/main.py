@@ -1,3 +1,6 @@
+from typing import List
+
+
 class TreeNode:
     def __init__(self, val=0, left=None, right=None):
         self.val = val
@@ -12,7 +15,7 @@ class Solution:
     # in the inorder array, before this index, it's the left subtree; and after, it's the right subtree. This is the property if inorder traverse
     # recursively construct the left subtree and the right subtree. Using the left subtree's inorder length to determine which section in the preorder belongs to the left subtree
     # do the same for the right
-    def buildTree(self, preorder: list[int], inorder: list[int]) -> TreeNode:
+    def buildTree(self, preorder: List[int], inorder: List[int]) -> TreeNode:
         if len(preorder) == 0:
             return None
 
@@ -30,10 +33,11 @@ class Solution:
 
         return root
 
-# for testing
-
 
 def print_tree(nodes):
+    """
+    for testing
+    """
     empty = True
     for node in nodes:
         if node:
