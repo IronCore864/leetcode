@@ -7,6 +7,21 @@ class Node:
 
 
 class Solution:
+    def connect_recursive(self, root: 'Node') -> 'Node':
+        if not root:
+            return root
+
+        def connect_two_nodes(a, b):
+            if not a or not b:
+                return
+            a.next = b
+            connect_two_nodes(a.left, a.right)
+            connect_two_nodes(b.left, b.right)
+            connect_two_nodes(a.right, b.left)
+
+        connect_two_nodes(root.left, root.right)
+        return root
+
     def connect(self, root: 'Node') -> 'Node':
         if not root:
             return root
