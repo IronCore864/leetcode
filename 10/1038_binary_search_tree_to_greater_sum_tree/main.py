@@ -1,6 +1,3 @@
-from typing import Optional
-
-
 class TreeNode:
     def __init__(self, val=0, left=None, right=None):
         self.val = val
@@ -10,17 +7,16 @@ class TreeNode:
 
 class Solution:
     def bstToGst(self, root: TreeNode) -> TreeNode:
-        res = 0
+        s = 0
 
-        def traverse(n):
-            nonlocal res
-            if not n:
-                return None
-
-            traverse(n.right)
-            res += n.val
-            n.val = res
-            traverse(n.left)
+        def traverse(node):
+            nonlocal s
+            if not node:
+                return
+            traverse(node.right)
+            node.val += s
+            s = node.val
+            traverse(node.right)
 
         traverse(root)
         return root
