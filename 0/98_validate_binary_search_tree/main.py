@@ -1,3 +1,6 @@
+import sys
+
+
 class TreeNode:
     def __init__(self, val=0, left=None, right=None):
         self.val = val
@@ -26,6 +29,15 @@ class Solution(object):
             root = root.right
 
         return True
+
+    def recursive(self, root):
+        def valid(root, lo, hi):
+            if not root:
+                return True
+            if not (lo < root.val < hi):
+                return False
+            return valid(root.left, lo, root.val) and valid(root.right, root.val, hi)
+        return valid(root, -sys.maxsize, sys.maxsize)
 
 
 if __name__ == '__main__':
