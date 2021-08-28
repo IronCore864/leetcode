@@ -44,3 +44,4 @@ Each of the reworked new solutions has its own single commit, with comments at l
 Search in this repo (see results in both code, and commits) to find a specific topic or algorithm. For example, if you want to see problems related to "backtrack":
 
 ![backtrack](./screenshots/search.png)
+
