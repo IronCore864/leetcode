@@ -20,7 +20,7 @@ class Solution:
         sortedA = sorted(A)
         sortedB = sorted(B)
 
-        # assigned[b] = list of a that are assigned to beat b
+        # assigned[b] = list of a that are assigned to beat bg
         # remaining = list of a that are not assigned to any b
         assigned = {b: [] for b in B}
         remaining = []
