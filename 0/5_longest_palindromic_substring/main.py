@@ -1,5 +1,5 @@
 class Solution:
-    def longestPalindrome(self, s):
+    def longestPalindrome(self, s: str) -> str:
         res = ""
         # for each char in the input string, use it as the center of the palindrome
         # expand to left and right and try to get the maximum palindrome
@@ -13,7 +13,7 @@ class Solution:
                 res = tmp
         return res
 
-    def longestPalindrome_DP(self, s):
+    def longestPalindrome_DP(self, s： str) -> str:
         res = ''
         l = len(s)
 
