@@ -13,7 +13,7 @@ class Solution:
                 res = tmp
         return res
 
-    def longestPalindrome_DP(self, s： str) -> str:
+    def longestPalindrome_DP(self, s: str) -> str:
         res = ''
         l = len(s)
 
