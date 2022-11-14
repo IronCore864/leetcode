@@ -3,29 +3,30 @@ class Solution:
         n = len(height)
 
         # starting from two ends, because longer width container might hold more water
-        i = 0
-        j = n - 1
+        left = 0
+        right = n - 1
 
         res = 0
 
-        while i < j:
+        while left < right:
             # calculate the water volume
-            res = max(res, (j-i)*min(height[i], height[j]))
+            res = max(res, (right-left)*min(height[left], height[right]))
 
-            # move the shorter wall to the next
-            # this is because the water is limited by the shorter wall
+            # move the shorter wall inward
+            # the water is limited by the shorter wall
             # if you move the taller wall, even if the next is even taller, the total volume of the water can't increase,
-            # because the width reduces and the highest water level is decided by the shorter wall
-            if height[i] < height[j]:
-                i += 1
+            if height[left] < height[right]:
+                left += 1
                 # until a taller one is found
                 # this reduces some unnecessary calculations
-                while height[i] <= height[i-1] and i < n:
-                    i += 1
+                while height[left] <= height[left-1] and left < n:
+                    left += 1
             else:
-                j -= 1
-                while height[j] <= height[j+1] and j > 0:
-                    j -= 1
+                right -= 1
+                while height[right] <= height[right+1] and right > 0:
+
+                    right -= 1
+
         return res
 
 
