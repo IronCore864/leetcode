@@ -1,34 +1,42 @@
+from typing import List
+
+
 class Solution:
-    def threeSum(self, nums: list[int]) -> list[list[int]]:
-        n = len(nums)
-        if n < 3:
-            return []
+    def threeSum(self, nums: List[int]) -> List[List[int]]:
+        res = set()
 
-        nums.sort()
-        res = []
+        negative = [num for num in nums if num < 0]
+        positive = [num for num in nums if num > 0]
+        zero = [0 for num in nums if num == 0]
 
-        for i in range(n-2):
-            # remove duplicated results
-            if i > 0 and nums[i] == nums[i-1]:
-                continue
+        negative_set, positive_set = set(negative), set(positive)
 
-            # bi-directional two-sum
-            j, k = i+1, n-1
-            while j < k:
-                s = nums[i] + nums[j] + nums[k]
-                if s < 0:
-                    j += 1
-                elif s > 0:
-                    k -= 1
-                else:
-                    res.append((nums[i], nums[j], nums[k]))
-                    j += 1
-                    k -= 1
-                    # remove duplicated results
-                    while j < k and nums[j] == nums[j-1]:
-                        j += 1
-                    while j < k and nums[k] == nums[k+1]:
-                        k -= 1
+        # if there is at least 1 zero in the list, add all cases where -num exists in N and num exists in P
+        # i.e. (-3, 0, 3) = 0
+        if zero:
+            for num in positive_set:
+                if -num in negative_set:
+                    res.add((-num, 0, num))
+
+        # if there are at least 3 zeros in the list then also include (0, 0, 0) = 0
+        if len(zero) >= 3:
+            res.add((0, 0, 0))
+
+        # for all pairs of negative numbers (-3, -1), check to see if their complement (4)
+        # exists in the positive number set
+        for i in range(len(negative)):
+            for j in range(i+1, len(negative)):
+                target = -(negative[i]+negative[j])
+                if target in positive_set:
+                    res.add(tuple(sorted([negative[i], negative[j], target])))
+
+        # for all pairs of positive numbers (1, 1), check to see if their complement (-2)
+        # exists in the negative number set
+        for i in range(len(positive)):
+            for j in range(i+1, len(positive)):
+                target = -(positive[i]+positive[j])
+                if target in negative_set:
+                    res.add(tuple(sorted([positive[i], positive[j], target])))
 
         return res
 
