@@ -1,23 +1,23 @@
+from typing import List
+
+
 class Solution:
-    def permute(self, nums: list[int]) -> list[list[int]]:
+    def permute(self, nums: List[int]) -> List[List[int]]:
         res = []
 
-        # keep a record of already used numbers, so that there is no no duplicated numbers
         used = set()
 
-        def dfs_backtracking(path=[]):
+        def dfs(path):
             if len(path) == len(nums):
                 res.append(path)
                 return
-
             for num in nums:
                 if num not in used:
                     used.add(num)
-                    dfs_backtracking(path+[num])
-                    # backtracking
+                    dfs(path+[num])
                     used.remove(num)
 
-        dfs_backtracking()
+        dfs([])
         return res
 
 
