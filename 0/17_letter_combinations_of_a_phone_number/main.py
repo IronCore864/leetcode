@@ -1,61 +1,29 @@
+from typing import List
+
+
 class Solution:
-    def __init__(self):
-        self.keys = {
-            '2': 'abc',
-            '3': 'def',
-            '4': 'ghi',
-            '5': 'jkl',
-            '6': 'mno',
-            '7': 'pqrs',
-            '8': 'tuv',
-            '9': 'wxyz'
-        }
+    def letterCombinations(self, digits: str) -> List[str]:
+        d = {"2": "abc", "3": "def", "4": "ghi", "5": "jkl",
+             "6": "mno", "7": "pqrs", "8": "tuv", "9": "wxyz"}
 
-    # straightforward solution, easier to understand
-    def letterCombinations(self, digits: str) -> list[str]:
-        if digits == '':
-            return []
+        res = []
+        if len(digits) == 0:
+            return res
 
-        results = ['']
+        self.dfs(digits, 0, d, '', res)
+        return res
 
-        for digit in digits:
-            new_results = []
-            for word in results:
-                for char in self.keys[digit]:
-                    new_results.append(word+char)
-            results = new_results
+    def dfs(self, nums, index, d, path, res):
+        if index >= len(nums):
+            res.append(path)
+            return
 
-        return results
-
-    # backtrack solution
-    def letter_combo_backtrack(self, digits: str) -> list[str]:
-        results = []
-        if digits == '':
-            return results
-
-        def backtrack(index, path):
-            # If the path is the same length as digits, we have a complete combination
-            if len(path) == len(digits):
-                results.append("".join(path))
-                return  # Backtrack
-
-            # Get the letters that the current digit maps to, and loop through them
-            possible_letters = self.keys[digits[index]]
-            for letter in possible_letters:
-                # Add the letter to our current path
-                path.append(letter)
-                # Move on to the next digit
-                backtrack(index + 1, path)
-                # Backtrack by removing the letter before moving onto the next
-                path.pop()
-
-        backtrack(0, [])
-        return results
+        string1 = d[nums[index]]
+        for i in string1:
+            self.dfs(nums, index+1, d, path + i, res)
 
 
 if __name__ == '__main__':
     s = Solution()
-
     digits = "23"
     print(s.letterCombinations(digits))
-    print(s.letter_combo_backtrack(digits))
