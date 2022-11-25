@@ -1,3 +1,6 @@
+from typing import Optional
+
+
 class ListNode:
     def __init__(self, val=0, next=None):
         self.val = val
@@ -5,50 +8,24 @@ class ListNode:
 
 
 class Solution:
-    def removeNthFromEnd(self, head: ListNode, n: int) -> ListNode:
-        current = head
-        previous = current
-        tail = current
+    def removeNthFromEnd(self, head: Optional[ListNode], n: int) -> Optional[ListNode]:
+        start = ListNode(0)
+        slow, fast = start, start
+        slow.next = head
 
-        for i in range(n):
-            tail = tail.next
+        # move fast in front so that the gap between slow and fast becomes n
+        for i in range(n+1):
+            fast = fast.next
 
-        while tail:
-            previous = current
-            current = current.next
-            tail = tail.next
+        # move fast to the end, maintaining the gap
+        while fast:
+            slow, fast = slow.next, fast.next
 
-        # removing from the beginning of the list
-        if previous == current:
-            head = previous.next
-        else:
-            previous.next = current.next
-
-        return head
-
-
-def construct_list_of_nodes_by_arr(nums):
-    res = ListNode(nums[0])
-    current = res
-    for num in nums[1:]:
-        current.next = ListNode(num)
-        current = current.next
-    return res
-
-
-def print_node_list(head):
-    while head:
-        print(head.val)
-        head = head.next
+        # skip the desired node
+        slow.next = slow.next.next
+        return start.next
 
 
 if __name__ == '__main__':
     s = Solution()
-
-    n = 2
-    nodes_list = construct_list_of_nodes_by_arr([1, 2, 3, 4, 5])
-    res = s.removeNthFromEnd(nodes_list, n)
-    print_node_list(res)
-
-    # None
-    print(s.removeNthFromEnd(ListNode(1), 1))
+    print(s.removeNthFromEnd(ListNode(1), 0))
